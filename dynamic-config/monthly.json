@@ -1,0 +1,15 @@
+{
+    "data": {
+        "configMap": {
+            "OWNER_ID": "user1@me.com",
+            "PARTNER_ID": "user2@me.com",
+            "BASE_S3_PATH": "s3://gpg-by-example/gpg",
+            "DOWNLOAD_PATH": "/encrypt-example/__DATE_WITHOUT_DASH__/",
+            "DOWNLOAD_FILE_NAME": "month___DATE_WITHOUT_DASH__.txt",
+            "UPLOAD_PATH": "/encrypted/__DATE_WITHOUT_DASH__/",
+            "UPLOAD_FILE_NAME": "month___DATE_WITHOUT_DASH__.txt.encrypted"
+            
+        }
+    }
+}
+
