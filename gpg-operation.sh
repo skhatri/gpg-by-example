@@ -2,10 +2,10 @@
 
 cmd=$1
 
-if [[ ! -f /opt/app/download-${cmd}-upload.sh ]];
-then 
-  echo "command ${cmd} not understood"
-  exit 1;
+if [[ "${cmd}" == "debug" ]]; then
+ sleep 1d; 
+else
+  exec /opt/app/handler.sh "$@"
 fi;
 
-exec /opt/app/download-${cmd}-upload.sh "$@"
+
