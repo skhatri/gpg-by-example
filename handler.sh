@@ -7,9 +7,36 @@ cmd=$1
 
 _preconfigure() { 
   if [[ ! -z ${CONFIG_ENDPOINT} ]]; then 
+
+    if [[ -z ${EOD_DATE} ]]; then 
+      echo "EOD_DATE is required."
+      exit 1;
+    fi;
+    if [[ -z ${FREQUENCY} ]]; then 
+      echo "FREQUENCY is required."
+      exit 1;
+    fi;
+
+    DATE_WITH_DASH=${EOD_DATE}
+    DATE_WITHOUT_DASH=$(echo "${EOD_DATE}"|sed 's/"-"//g')
+    if [[ "${FREQUENCY}" == "monthly" ]]; then 
+      MONTH=$(echo ${EOD_DATE}|awk -F"-" '{print $1"-"$2}')
+      DATE_WITH_DASH="${MONTH}"
+      DATE_WITHOUT_DASH=$(echo ${MONTH}|sed 's/"-"//g')
+    fi;
+    
     curl -o /tmp/config.json -sk ${CONFIG_ENDPOINT}
     : "${CONFIG_SELECTOR:=".data.configMap"}"
+    for kv in $(cat /tmp/config.json|jq -r "${CONFIG_SELECTOR}"|jq -r 'to_entries|map("\(.key):::\(.value|tostring)")|.[]');
+    do 
+        read a b <<< $(echo $kv|awk -F":::" '{print $1" \""$2"\""}')
+        value=$(echo $b|sed "s/__DATE_WITH_DASH__/${DATE_WITH_DASH}/;s/__DATE_WITHOUT_DASH__/${DATE_WITHOUT_DASH}/g;s/\"//g")
+        echo config $a with value $value
 
+        export $a=$value
+        export DOWNLOAD_FILE="${BASE_S3_PATH}/${DOWNLOAD_PATH}/${DOWNLOAD_FILE_NAME}"
+        export UPLOAD_FILE="${BASE_S3_PATH}/${UPLOAD_PATH}/${UPLOAD_FILE_NAME}"
+    done;
   fi;
 }
 
