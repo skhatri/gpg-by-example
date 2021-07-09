@@ -14,6 +14,9 @@ export EOD_DATE=2021-07-08
 export FREQUENCY=monthly
 export CONFIG_ENDPOINT="https://raw.githubusercontent.com/skhatri/gpg-by-example/main/dynamic-config/monthly.json"
 export WEBHOOK_ENDPOINT="http://localhost:6100/echo"
-export WEBHOOK_NOTIFICATION_TEMPLATE="{\"next_step\": \"do stuff\", \"path\":\"__UPLOAD_FILE__\"}"
+export WEBHOOK_ENDPOINT_TEMPLATE="{\"next_step\": \"do stuff\", \"path\":\"__UPLOAD_FILE__\"}"
+export WEBHOOK_ENDPOINT_2="http://localhost:6100/echo"
+export WEBHOOK_ENDPOINT_2_TEMPLATE="{\"message\": \"job complete\"}"
+
 ./handler.sh "encrypt"
 

@@ -42,20 +42,24 @@ _preconfigure() {
 
 
 _notify() {
-    if [[ ! -z ${WEBHOOK_ENDPOINT} ]] && [[ ! -z ${WEBHOOK_NOTIFICATION_TEMPLATE} ]];
-    then 
-    echo $DOWNLOAD_FILE
-    echo $UPLOAD_FILE
-    echo $result
-    echo "---"
-        data=$(echo "${WEBHOOK_NOTIFICATION_TEMPLATE}"|sed "s#__DOWNLOAD_FILE__#"${DOWNLOAD_FILE}"#g;s#__UPLOAD_FILE__#"${UPLOAD_FILE}"#g;s#__STATUS__#${result}#g")
-        curl -H"Content-Type: application/json" -sk ${WEBHOOK_ENDPOINT} -d "'"${data}"'"
+    for var_name in $(env|grep WEBHOOK_ENDPOINT|grep -v TEMPLATE|awk -F"=" '{print $1}');
+    do 
+      template_name="${var_name}_TEMPLATE"
+      if [[ ! -z ${!var_name} ]] && [[ ! -z ${!template_name} ]];
+      then 
+        template=${!template_name}
+        endpoint=${!var_name}
+        data=$(echo "${template}"|sed "s#__DOWNLOAD_FILE__#"${DOWNLOAD_FILE}"#g;s#__UPLOAD_FILE__#"${UPLOAD_FILE}"#g;s#__STATUS__#${result}#g")
+        curl -H"Content-Type: application/json" -sk ${endpoint} -d "'"${data}"'"
         notification_result=$?
         if [[ $notification_result -ne 0 ]];
         then 
-        echo "failed to send notification."
+        echo "failed to send notification to ${!var_name}"
         fi;
-    fi;
+
+      fi;
+    done;
+
 }
 
 
