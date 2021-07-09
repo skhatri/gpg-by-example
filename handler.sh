@@ -44,8 +44,12 @@ _preconfigure() {
 _notify() {
     if [[ ! -z ${WEBHOOK_ENDPOINT} ]] && [[ ! -z ${WEBHOOK_NOTIFICATION_TEMPLATE} ]];
     then 
-        data=$(echo "${WEBHOOK_NOTIFICATION_TEMPLATE}"|sed "s/__DOWNLOAD_FILE__/${DOWNLOAD_FILE}/g;s/__UPLOAD_FILE__/${UPLOAD_FILE}/g;s/__STATUS__/${result}/g")
-        curl -H"Content-Type: application/json" -sk ${WEBHOOK_ENDPOINT} -d ${data}
+    echo $DOWNLOAD_FILE
+    echo $UPLOAD_FILE
+    echo $result
+    echo "---"
+        data=$(echo "${WEBHOOK_NOTIFICATION_TEMPLATE}"|sed "s#__DOWNLOAD_FILE__#"${DOWNLOAD_FILE}"#g;s#__UPLOAD_FILE__#"${UPLOAD_FILE}"#g;s#__STATUS__#${result}#g")
+        curl -H"Content-Type: application/json" -sk ${WEBHOOK_ENDPOINT} -d "'"${data}"'"
         notification_result=$?
         if [[ $notification_result -ne 0 ]];
         then 
