@@ -20,6 +20,7 @@ COPY --chown=app:app download-encrypt-upload.sh /opt/app/
 COPY --chown=app:app download-decrypt-upload.sh /opt/app/
 COPY --chown=app:app s3.sh /opt/app/
 COPY --chown=app:app crypto.sh /opt/app/crypto.sh
+COPY --chown=app:app handler.sh /opt/app/handler.sh
 
 ENTRYPOINT [ "/opt/app/gpg-operation.sh" ]
 CMD ["encrypt"]
