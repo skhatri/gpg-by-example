@@ -7,7 +7,9 @@
             "DOWNLOAD_PATH": "encrypt-example/__DATE_WITHOUT_DASH__",
             "DOWNLOAD_FILE_NAME": "month___DATE_WITHOUT_DASH__.txt",
             "UPLOAD_PATH": "encrypted/__DATE_WITHOUT_DASH__",
-            "UPLOAD_FILE_NAME": "month___DATE_WITHOUT_DASH__.txt.encrypted"
+            "UPLOAD_FILE_NAME": "month___DATE_WITHOUT_DASH__.txt.encrypted",
+	    "WEBHOOK_ENDPOINT": "http://localhost:6100/echo",
+	    "WEBHOOK_ENDPOINT_TEMPLATE": "{\"next_step\": \"do stuff\", \"path\":\"__UPLOAD_FILE__\"}"
             
         }
     }
