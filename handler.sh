@@ -2,9 +2,6 @@
 script_dir=$(dirname $0)
 cmd=$1
 
-
-
-
 _preconfigure() { 
   if [[ ! -z ${CONFIG_ENDPOINT} ]]; then 
 
@@ -27,16 +24,21 @@ _preconfigure() {
     
     curl -o /tmp/config.json -sk ${CONFIG_ENDPOINT}
     : "${CONFIG_SELECTOR:=".data.configMap"}"
-    for kv in $(cat /tmp/config.json|jq -r "${CONFIG_SELECTOR}"|jq -r 'to_entries|map("\(.key):::\(.value|tostring)")|.[]');
-    do 
-        read a b <<< $(echo $kv|awk -F":::" '{print $1" \""$2"\""}')
+    
+    cat /tmp/config.json|jq -r "${CONFIG_SELECTOR}"|jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' > /tmp/vars.txt
+    while IFS= read -r kv;
+    do
+        echo "kv is [${kv}]"
+        a=$(echo $kv|awk -F"=" '{print $1}')
+        b=$(echo $kv|sed 's/.*=//')
+        echo "B is [${b}]"
         value=$(echo $b|sed "s/__DATE_WITH_DASH__/${DATE_WITH_DASH}/;s/__DATE_WITHOUT_DASH__/${DATE_WITHOUT_DASH}/g;s/\"//g")
         echo config $a with value $value
 
-        export $a=$value
+        export $a="$value"
         export DOWNLOAD_FILE="${BASE_S3_PATH}/${DOWNLOAD_PATH}/${DOWNLOAD_FILE_NAME}"
         export UPLOAD_FILE="${BASE_S3_PATH}/${UPLOAD_PATH}/${UPLOAD_FILE_NAME}"
-    done;
+    done < /tmp/vars.txt
   fi;
 }
 
