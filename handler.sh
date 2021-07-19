@@ -15,11 +15,11 @@ _preconfigure() {
     fi;
 
     DATE_WITH_DASH=${EOD_DATE}
-    DATE_WITHOUT_DASH=$(echo "${EOD_DATE}"|sed 's/"-"//g')
+    DATE_WITHOUT_DASH=$(echo "${EOD_DATE}"|sed 's/-//g')
     if [[ "${FREQUENCY}" == "monthly" ]]; then 
       MONTH=$(echo ${EOD_DATE}|awk -F"-" '{print $1"-"$2}')
       DATE_WITH_DASH="${MONTH}"
-      DATE_WITHOUT_DASH=$(echo ${MONTH}|sed 's/"-"//g')
+      DATE_WITHOUT_DASH=$(echo ${MONTH}|sed 's/-//g')
     fi;
     
     curl -o /tmp/config.json -sk ${CONFIG_ENDPOINT}

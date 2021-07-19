@@ -74,14 +74,21 @@ _crypto() {
     error "output file ${output} exists. refusing to overwrite."
   fi;
   _init_crypto
-  
+
+  ignore_mdc=""
+  if [[ "${IGNORE_MDC_ERROR}" == "true" ]];
+  then
+    ignore_mdc="--ignore-mdc-error"
+    echo "ignoring mdc error"
+  fi;
+
   echo "operation: ${op}"
   case $op in 
     encrypt)
-      gpg --armor --pinentry-mode loopback -u "${OWNER_ID}" --passphrase-file ${PASSPHRASE_FILE} -r "${PARTNER_ID}" -o ${output} --encrypt ${input}
+      gpg --armor ${ignore_mdc} --pinentry-mode loopback -u "${OWNER_ID}" --passphrase-file ${PASSPHRASE_FILE} -r "${PARTNER_ID}" -o ${output} --encrypt ${input}
       ;;
     decrypt)
-      gpg --armor --pinentry-mode loopback -u "${OWNER_ID}" --passphrase-file ${PASSPHRASE_FILE} -r "${PARTNER_ID}" -o ${output} --decrypt ${input}
+      gpg --armor ${ignore_mdc} --pinentry-mode loopback -u "${OWNER_ID}" --passphrase-file ${PASSPHRASE_FILE} -r "${PARTNER_ID}" -o ${output} --decrypt ${input}
       ;;
   esac;
 
