@@ -34,6 +34,12 @@ then
 fi;
 ./s3.sh ${DOWNLOAD_FILE}  ${WORK_DIR}/_tmpfile
 
-./crypto.sh encrypt ${WORK_DIR}/_tmpfile ${WORK_DIR}/_encrypted_file
+if [[ "${ENABLE_ENCRYPTION}" == "false" ]];
+then
+  echo "encryption disabled"
+  cp ${WORK_DIR}/_tmpfile ${WORK_DIR}/_encrypted_file
+else
+  ./crypto.sh encrypt ${WORK_DIR}/_tmpfile ${WORK_DIR}/_encrypted_file
+fi;
 
 ./s3.sh ${WORK_DIR}/_encrypted_file ${UPLOAD_FILE}
