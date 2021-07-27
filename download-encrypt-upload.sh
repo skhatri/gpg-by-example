@@ -34,7 +34,7 @@ then
 fi;
 ./s3.sh ${DOWNLOAD_FILE}  ${WORK_DIR}/_tmpfile
 
-if [[ "${ENABLE_ENCRYPTION}" == "false" ]];
+if [[ "${ENABLE_ENCRYPTION}" = "false" ]];
 then
   echo "encryption disabled"
   cp ${WORK_DIR}/_tmpfile ${WORK_DIR}/_encrypted_file
