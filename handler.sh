@@ -36,9 +36,21 @@ _preconfigure() {
         echo config $a with value $value
 
         export $a="$value"
-        export DOWNLOAD_FILE="${BASE_S3_PATH}/${DOWNLOAD_PATH}/${DOWNLOAD_FILE_NAME}"
-        export UPLOAD_FILE="${BASE_S3_PATH}/${UPLOAD_PATH}/${UPLOAD_FILE_NAME}"
     done < /tmp/vars.txt
+    if [[ -n "$DOWNLOAD_BASE_S3_PATH" ]]; then
+      echo "Using separate base path for download: $DOWNLOAD_BASE_S3_PATH"
+      DOWNLOAD_BASE_S3_PATH="$DOWNLOAD_BASE_S3_PATH"
+    else
+      DOWNLOAD_BASE_S3_PATH="$BASE_S3_PATH"
+    fi
+    if [[ -n "$UPLOAD_BASE_S3_PATH" ]]; then
+      echo "Using separate base path for upload: $UPLOAD_BASE_S3_PATH"
+      UPLOAD_BASE_S3_PATH="$UPLOAD_BASE_S3_PATH"
+    else
+      UPLOAD_BASE_S3_PATH="$BASE_S3_PATH"
+    fi
+    export DOWNLOAD_FILE="${DOWNLOAD_BASE_S3_PATH}/${DOWNLOAD_PATH}/${DOWNLOAD_FILE_NAME}"
+    export UPLOAD_FILE="${UPLOAD_BASE_S3_PATH}/${UPLOAD_PATH}/${UPLOAD_FILE_NAME}"
   fi;
 }
 
