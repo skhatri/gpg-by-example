@@ -20,6 +20,12 @@ then
   other_args=" --endpoint-url ${AWS_ENDPOINT_URL}"
 fi;
 
+if [[ "${AWS_NO_VERIFY_SSL}" == "true" ]];
+then
+  echo "disabling SSL verification"
+  other_args="${other_args} --no-verify-ssl"
+fi;
+
 source=$1
 target=$2
 
