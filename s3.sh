@@ -14,10 +14,10 @@ export AWS_ACCESS_KEY_ID=${access_key}
 export AWS_SECRET_ACCESS_KEY=${secret_key}
 export AWS_SESSION_TOKEN=${token}
 
-other_args=""
+other_args="--no-verify-ssl"
 if [[ ! -z ${AWS_ENDPOINT_URL} ]];
 then
-  other_args=" --endpoint-url ${AWS_ENDPOINT_URL}"
+  other_args="${other_args} --endpoint-url ${AWS_ENDPOINT_URL}"
 fi;
 
 source=$1
