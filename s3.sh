@@ -17,7 +17,7 @@ export AWS_SESSION_TOKEN=${token}
 other_args=""
 if [[ ! -z ${AWS_ENDPOINT_URL} ]];
 then
-  other_args=" --endpoint-url ${AWS_ENDPOINT_URL}"
+  other_args="${other_args} --endpoint-url ${AWS_ENDPOINT_URL}"
 fi;
 
 if [[ "${AWS_NO_VERIFY_SSL}" == "true" ]];
