@@ -3,9 +3,9 @@ then
   aws sts get-session-token > sts-result.json
 fi;
 
-access_key=$(cat sts-result.json|jq -r '.Credentials.AccessKeyId')
-secret_key=$(cat sts-result.json|jq -r '.Credentials.SecretAccessKey')
-session_token=$(cat sts-result.json|jq -r '.Credentials.SessionToken')
+access_key=$(jq -r '.Credentials.AccessKeyId' sts-result.json)
+secret_key=$(jq -r '.Credentials.SecretAccessKey' sts-result.json)
+session_token=$(jq -r '.Credentials.SessionToken' sts-result.json)
 
 echo '{"accessKeyId": "'${access_key}'", "secretAccessKey": "'${secret_key}'", "sessionToken": "'${session_token}'"}' > token.json
 

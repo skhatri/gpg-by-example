@@ -10,7 +10,7 @@ fi;
 
 
 if [[ ! -d "${user_dir}/secrets" ]]; then
-  mkdir -p ${user_dir}/secrets
+  mkdir -p "${user_dir}"/secrets
 fi;
 
 ./create-s3-key.sh
