@@ -42,18 +42,19 @@ Performs download,encrypt,upload and download,decrypt,upload using user1 and use
 
 ### Passing Configuration
 
-|Variable|Description|
-|---|---|
-|ENABLE_ENCRYPTION|Enable/disable encryption|
-|ENABLE_DECRYPTION|Enable/disable decryption|
-|CONFIG_ENDPOINT|Endpoint to be used to download env var eg https://raw.githubusercontent.com/skhatri/gpg-by-example/main/dynamic-config/monthly.json|
-|WEBHOOK_ENDPOINT|Endpoint to call at the end of the task|
-|WEBHOOK_ENDPOINT_TEMPLATE|Template to be used to create webhook payload. __UPLOAD_FILE__ and __DOWNLOAD_FILE__ will be substituted|
-|WEBHOOK_ENDPOINT_3|Add another webhook|
-|WEBHOOK_ENDPOINT_3_TEMPLATE|Payload for webhook endpoint 3|
-|EOD_DATE|End of Date if requiring dynamic calculation of upload/download file|
-|FREQUENCY|eg daily,monthly which is used along with EOD_DATE to work out the date value in file path|
-|IGNORE_MDC_ERROR|Set to "true" if you want to use flag "--ignore-mdc-error" to decrypt|
+|Variable| Description                                                                                                                           |
+|---|---------------------------------------------------------------------------------------------------------------------------------------|
+|ENABLE_ENCRYPTION| Enable/disable encryption                                                                                                             |
+|ENABLE_DECRYPTION| Enable/disable decryption                                                                                                             |
+|CONFIG_ENDPOINT| Endpoint to be used to download env var eg https://raw.githubusercontent.com/skhatri/gpg-by-example/main/dynamic-config/monthly.json  |
+|WEBHOOK_ENDPOINT| Endpoint to call at the end of the task                                                                                               |
+|WEBHOOK_ENDPOINT_TEMPLATE| Template to be used to create webhook payload. __UPLOAD_FILE__ and __DOWNLOAD_FILE__ will be substituted                              |
+|WEBHOOK_ENDPOINT_3| Add another webhook                                                                                                                   |
+|WEBHOOK_ENDPOINT_3_TEMPLATE| Payload for webhook endpoint 3                                                                                                        |
+|EOD_DATE| End of Date if requiring dynamic calculation of upload/download file                                                                  |
+|FREQUENCY| eg daily,monthly which is used along with EOD_DATE to work out the date value in file path                                            |
+|IGNORE_MDC_ERROR| Set to "true" if you want to use flag "--ignore-mdc-error" to decrypt                                                                 |
+|CRYPTOGRAPHY_SCRIPT| Can provide a custom script that will execute some encrypt/decrypt command. By default, it will use `crypto.sh` for gpg encrypt/decrypt |
 
 
 
