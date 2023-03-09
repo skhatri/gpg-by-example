@@ -18,6 +18,7 @@ WORKDIR "/opt/app"
 COPY --chown=app:app gpg-operation.sh /opt/app/gpg-operation.sh
 COPY --chown=app:app download-encrypt-upload.sh /opt/app/
 COPY --chown=app:app download-decrypt-upload.sh /opt/app/
+COPY --chown=app:app download-upload-config.sh /opt/app/
 COPY --chown=app:app s3.sh /opt/app/
 COPY --chown=app:app crypto.sh /opt/app/crypto.sh
 COPY --chown=app:app handler.sh /opt/app/handler.sh
