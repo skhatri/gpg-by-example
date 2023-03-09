@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -x
 
 if [[ -z "${S3_SECRETS_FILE}" ]] || [[ ! -f "${S3_SECRETS_FILE}" ]];
 then
